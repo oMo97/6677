@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rollwise｜骰子機率實驗室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Rollwise 首頁">
+        <span class="brand-mark">R</span>
+        <span>ROLLWISE</span>
+      </a>
+      <div class="status-pill"><span class="status-dot"></span>即時計算</div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">DICE PROBABILITY LAB / 01</p>
+          <h1>把運氣攤開來看。</h1>
+          <p class="hero-copy">調整骰子，理解每一種結果出現的機率。<br>做出更聰明的下一次投擲。</p>
+        </div>
+        <div class="hero-equation" aria-label="骰子機率公式">
+          <span class="equation-label">所有結果</span>
+          <strong>n<sup>k</sup></strong>
+          <span class="equation-note">組合空間</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="controls-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="section-number">01</span>
+              <h2>設定骰子</h2>
+            </div>
+            <span class="live-label">LIVE</span>
+          </div>
+
+          <div class="control-group">
+            <label for="dice-count">骰子數量 <span>最多 8 顆</span></label>
+            <div class="stepper">
+              <button class="step-button" data-action="decrease" data-target="dice-count" aria-label="減少骰子數量">−</button>
+              <output id="dice-count-value">2</output>
+              <button class="step-button" data-action="increase" data-target="dice-count" aria-label="增加骰子數量">＋</button>
+            </div>
+            <input id="dice-count" type="range" min="1" max="8" value="2">
+          </div>
+
+          <div class="control-group">
+            <label for="sides-count">每顆面數 <span>標準 D6</span></label>
+            <div class="stepper">
+              <button class="step-button" data-action="decrease" data-target="sides-count" aria-label="減少骰子面數">−</button>
+              <output id="sides-count-value">6</output>
+              <button class="step-button" data-action="increase" data-target="sides-count" aria-label="增加骰子面數">＋</button>
+            </div>
+            <input id="sides-count" type="range" min="2" max="20" value="6">
+          </div>
+
+          <div class="divider"></div>
+          <div class="target-heading">
+            <div>
+              <span class="section-number">02</span>
+              <h2>鎖定目標</h2>
+            </div>
+            <button id="clear-target" class="text-button" type="button">清除</button>
+          </div>
+
+          <div class="target-input-wrap">
+            <label for="target-value">總和目標</label>
+            <input id="target-value" type="number" min="2" max="12" value="7">
+            <span>點</span>
+          </div>
+          <div class="target-probability">
+            <span>命中機率</span>
+            <strong id="target-probability">16.67%</strong>
+          </div>
+
+          <button id="roll-button" class="roll-button" type="button">
+            <span class="roll-icon">↗</span>
+            <span>擲骰子</span>
+            <span class="shortcut">SPACE</span>
+          </button>
+          <p class="tip">按下空白鍵也可以擲骰</p>
+        </aside>
+
+        <div class="results-panel">
+          <div class="results-header">
+            <div>
+              <span class="section-number">03</span>
+              <h2>結果分布</h2>
+            </div>
+            <div class="sample-size">精確計算 <span id="sample-size">36</span> 種結果</div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-meta">
+              <div>
+                <span class="chart-label">總和機率</span>
+                <strong id="range-label">2 — 12</strong>
+              </div>
+              <div class="legend"><span class="legend-dot"></span>機率百分比</div>
+            </div>
+            <div id="chart" class="chart" role="img" aria-label="骰子總和機率分布圖"></div>
+          </div>
+
+          <div class="roll-result" aria-live="polite">
+            <div class="result-label">最近一次擲骰</div>
+            <div class="result-main">
+              <div id="last-roll" class="dice-display">—</div>
+              <div class="result-detail">
+                <span id="result-caption">準備好開始了嗎？</span>
+                <strong id="result-total">等待擲骰</strong>
+              </div>
+            </div>
+            <div id="roll-history" class="roll-history"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>ROLLWISE</span><span>機率是地圖，不是命運。</span></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
